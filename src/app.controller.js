@@ -7,11 +7,21 @@ import adminRouter from "./Modules/Admin/admin.controller.js";
 import { globalErrorHandler } from "./utils/errorHandling/globalErrorHandler.js";
 import { notFoundHandler } from "./utils/errorHandling/notFoundHandler.js";
 import cors from "cors";
+import { rateLimit } from "express-rate-limit";
+import helmet from "helmet";
+
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  limit: 5,
+  message: "Too many requests from this IP, please try again after 5 minutes",
+});
 
 export const bootstrap = async (app, express) => {
   await connectDB();
 
   app.use(cors());
+  app.use(limiter);
+  app.use(helmet());
   app.use(express.json());
   app.use("/uploads", express.static("uploads"));
 
