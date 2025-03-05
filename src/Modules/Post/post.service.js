@@ -162,13 +162,8 @@ export const activatePost = async (req, res, next) => {
   }
 
   //pagination
-  let { page } = req.query || 1;
-  const limit = 5;
-  const skip = (page - 1) * limit;
-
-  const results = await PostModel.find({ isDeleted: false })
-    .limit(limit)
-    .skip(skip);
+  let { page } = req.query;
+  const results = await PostModel.find({ isDeleted: false }).paginate(page);
   return res.status(200).json({ success: true, data: { posts, results } });
 };
 
