@@ -8,7 +8,7 @@ export const registerSchema = Joi.object({
   email: generalFields.email.required(),
   password: generalFields.password.required(),
   confirmPassword: generalFields.confirmPassword.required(),
-  gender: generalFields.gender.required(),
+  gender: generalFields.gender,
   phoneNumber: generalFields.phoneNumber.required(),
   role: generalFields.role.valid(rolesType.admin, rolesType.user),
 }).required();
