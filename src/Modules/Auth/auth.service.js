@@ -40,6 +40,7 @@ export const register = async (req, res, next) => {
       lastName,
       email,
       password,
+      confirmPassword,
       phoneNumber: encryptPhone,
     },
   });
