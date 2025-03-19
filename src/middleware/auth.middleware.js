@@ -19,9 +19,6 @@ export const authMiddleware = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     if (!authorization) {
-      // return res
-      //   .status(401)
-      //   .json({ success: false, message: "Authorization token is required" });
       return next(new Error("Authorization token is required", { cause: 401 }));
     }
     const [Bearer, token] = authorization.split(" ");
@@ -38,18 +35,11 @@ export const authMiddleware = async (req, res, next) => {
     }
 
     const decoded = verifyToken({ token, signature: TOKEN_SIGNATURE });
-    // jwt.verify(token, TOKEN_SIGNATURE);
     if (!decoded) {
-      // return res
-      //   .status(401)
-      //   .json({ success: false, message: "Invalid payload" });
       return next(new Error("Invalid payload", { cause: 401 }));
     }
     const user = await UserModel.findById(decoded.id);
     if (!user) {
-      // return res
-      //   .status(401)
-      //   .json({ success: false, message: "User not found" });
       return next(new Error("User not found", { cause: 401 }));
     }
 
@@ -64,9 +54,6 @@ export const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    // return res
-    //   .status(500)
-    //   .json({ success: false, error: error.message, stack: error.stack });
     return next(error);
   }
 };

@@ -12,7 +12,8 @@ import { OAuth2Client } from "google-auth-library";
 import * as dbService from "../../DB/dbService.js";
 
 export const register = async (req, res, next) => {
-  const { userName, email, password, confirmPassword, phoneNumber } = req.body;
+  const { firstName, lastName, email, password, confirmPassword, phoneNumber } =
+    req.body;
   if (await dbService.findOne({ model: UserModel, filter: { email } }))
     return next(new Error("user already exists", { cause: 409 }));
   if (password !== confirmPassword) {
@@ -35,9 +36,9 @@ export const register = async (req, res, next) => {
   const user = await dbService.create({
     model: UserModel,
     data: {
-      userName,
+      firstName,
+      lastName,
       email,
-      // password: hashedPassword,
       password,
       phoneNumber: encryptPhone,
     },

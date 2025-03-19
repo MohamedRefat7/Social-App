@@ -25,7 +25,8 @@ export const isValidObjectId = (value, helper) => {
 };
 
 export const generalFields = {
-  userName: Joi.string().min(3).max(20),
+  firstName: Joi.string().min(3).max(20),
+  lastName: Joi.string().min(3).max(20),
   email: Joi.string().email({
     minDomainSegments: 2,
     maxDomainSegments: 2,

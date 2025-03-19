@@ -3,7 +3,8 @@ import { rolesType } from "../../middleware/auth.middleware.js";
 import { generalFields } from "../../middleware/validation.middleware.js";
 
 export const registerSchema = Joi.object({
-  userName: generalFields.userName.required(),
+  firstName: generalFields.firstName.required(),
+  lastName: generalFields.lastName.required(),
   email: generalFields.email.required(),
   password: generalFields.password.required(),
   confirmPassword: generalFields.confirmPassword.required(),

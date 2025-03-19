@@ -46,8 +46,8 @@ const postSchema = new Schema(
 
 postSchema.query.paginate = async function (page) {
   page = page ? parseInt(page) : 1;
-  const limit = 4;
-  const skip = (page - 1) * limit;
+  const limit = 4; // items per page
+  const skip = (page - 1) * limit; // items to skip
   const data = await this.skip(skip).limit(limit);
   const itemsCount = await this.model.countDocuments();
   const pagesCount = Math.ceil(itemsCount / limit);
